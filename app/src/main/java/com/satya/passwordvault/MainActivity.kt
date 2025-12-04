@@ -1,22 +1,13 @@
 package com.satya.passwordvault
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.satya.passwordvault.databinding.ActivityMainBinding
+import com.satya.passwordvault.presentation.PasswordVaultApp
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,58 +32,16 @@ class MainActivity : AppCompatActivity() {
 
     fun initCompose() {
         binding.composeView.setContent {
-            PasswordVaultApp()
+            PasswordVaultApp(doLogin = { username, password ->
+                // Handle login logic here
+                doSubmit(username, password)
+            })
         }
     }
 
-    @Composable
-    fun PasswordVaultApp() {
-        Card(
-            shape = MaterialTheme.shapes.medium,
-            elevation = 4.dp,
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(
-                    text = "LOGIN",
-                    style = MaterialTheme.typography.h6,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(16.dp)
-                )
-
-                Text(
-                    text = "Username",
-                    style = MaterialTheme.typography.body1,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    placeholder = { Text(text = "Enter Username") },
-                    modifier = Modifier.padding(16.dp)
-                )
-                Text(
-                    text = "Password",
-                    style = MaterialTheme.typography.body1,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    placeholder = { Text(text = "Enter Password") },
-                    modifier = Modifier.padding(16.dp)
-                )
-
-                Button(
-                    onClick = { /* Handle login button click */ },
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(text = "Login")
-                }
-
-            }
-        }
+    private fun doSubmit(username: String, password: String) {
+        Toast.makeText(this, "Welcome User!", Toast.LENGTH_SHORT).show()
     }
+
 }
+
