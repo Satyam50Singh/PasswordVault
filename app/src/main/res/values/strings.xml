@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PasswordVault</string>
+    <string name="password_vault">Password Vault!</string>
+</resources>
