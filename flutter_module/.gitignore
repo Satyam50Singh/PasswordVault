@@ -46,3 +46,8 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# Or more granular:
+/.android/gradlew.bat
+/.ios/Flutter/Generated.xcconfig
+/.ios/Flutter/flutter_export_environment.sh
