@@ -8,6 +8,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.satya.passwordvault.databinding.ActivityMainBinding
 import com.satya.passwordvault.presentation.PasswordVaultApp
+import io.flutter.embedding.android.FlutterActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +43,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun doSubmit(username: String, password: String) {
         Toast.makeText(this, "Welcome User!", Toast.LENGTH_SHORT).show()
+        val intent = FlutterActivity
+            .withCachedEngine("login_flutter")
+            .build(this)
+
+        startActivity(intent)
     }
 
 }
