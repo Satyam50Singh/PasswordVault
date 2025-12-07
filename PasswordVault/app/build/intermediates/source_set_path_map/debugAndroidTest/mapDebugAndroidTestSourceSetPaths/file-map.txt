@@ -1,0 +1,8 @@
+com.satya.passwordvault.test.app-tracing-1.2.0-0 /Users/satyamsingh/.gradle/caches/8.13/transforms/70acc83118e31751513cb976932e595e/transformed/tracing-1.2.0/res
+com.satya.passwordvault.test.app-core-1.5.0-1 /Users/satyamsingh/.gradle/caches/8.13/transforms/71a636c7e368fe1198d6b11d6c78b365/transformed/core-1.5.0/res
+com.satya.passwordvault.test.app-annotation-experimental-1.4.1-2 /Users/satyamsingh/.gradle/caches/8.13/transforms/cf08141864ea94ac1d3cb23352e1f4a1/transformed/annotation-experimental-1.4.1/res
+com.satya.passwordvault.test.app-androidTest-3 /Users/satyamsingh/Documents/Workspace/Password Vault/PasswordVault/app/build/generated/res/resValues/androidTest/debug
+com.satya.passwordvault.test.app-updated_navigation_xml-4 /Users/satyamsingh/Documents/Workspace/Password Vault/PasswordVault/app/build/generated/updated_navigation_xml/debugAndroidTest
+com.satya.passwordvault.test.app-mergeDebugAndroidTestResources-5 /Users/satyamsingh/Documents/Workspace/Password Vault/PasswordVault/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.satya.passwordvault.test.app-mergeDebugAndroidTestResources-6 /Users/satyamsingh/Documents/Workspace/Password Vault/PasswordVault/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.satya.passwordvault.test.app-debugAndroidTest-7 /Users/satyamsingh/Documents/Workspace/Password Vault/PasswordVault/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
