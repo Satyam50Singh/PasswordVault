@@ -30,3 +30,4 @@ flutter_module/.flutter-plugins
 **/intermediates/
 **/apk/
 
+/.kotlin/
