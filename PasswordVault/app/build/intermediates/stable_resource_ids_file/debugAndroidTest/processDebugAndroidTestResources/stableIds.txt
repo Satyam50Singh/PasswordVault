@@ -1,2 +1,0 @@
-com.satya.passwordvault.test:style/WhiteBackgroundTheme = 0x7f010001
-com.satya.passwordvault.test:style/WhiteBackgroundDialogTheme = 0x7f010000

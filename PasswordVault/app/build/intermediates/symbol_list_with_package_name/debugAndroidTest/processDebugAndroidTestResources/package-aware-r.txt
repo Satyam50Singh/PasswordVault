@@ -1,3 +1,0 @@
-com.satya.passwordvault.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme

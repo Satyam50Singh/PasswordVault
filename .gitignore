@@ -7,9 +7,26 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+
+# Android
+PasswordVault/app/build/
+PasswordVault/build/
+
+# Flutter module
+flutter_module/.dart_tool/
+flutter_module/build/
+flutter_module/.packages
+flutter_module/.flutter-plugins
+
+# Intermediate native libs
+**/merged_native_libs/
+**/intermediates/
+**/apk/
+
