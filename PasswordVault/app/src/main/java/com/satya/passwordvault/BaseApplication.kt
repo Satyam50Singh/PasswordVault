@@ -1,6 +1,7 @@
 package com.satya.passwordvault
 
 import android.app.Application
+import android.widget.Toast
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -22,7 +23,16 @@ class BaseApplication: Application() {
             DartExecutor.DartEntrypoint.createDefault()
         )
 
+        flutterEngine.navigationChannel.setInitialRoute("/");
+
         methodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, LOGIN_CHANNEL)
+        methodChannel?.setMethodCallHandler { call, result ->
+            when (call.method) {
+                "closeFlutter" -> {
+                    Toast.makeText(applicationContext, "Flutter closed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         FlutterEngineCache.getInstance()
             .put("login_flutter", flutterEngine)

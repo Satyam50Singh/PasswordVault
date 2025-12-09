@@ -43,7 +43,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun doSubmit(username: String, password: String) {
         if (username.isEmpty()) {
-            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.please_enter_a_username), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (password.isEmpty()) {
+            Toast.makeText(this, getString(R.string.please_enter_a_password), Toast.LENGTH_SHORT).show()
             return
         }
 
