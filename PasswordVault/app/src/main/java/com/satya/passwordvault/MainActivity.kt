@@ -42,7 +42,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doSubmit(username: String, password: String) {
-        Toast.makeText(this, "Welcome User!", Toast.LENGTH_SHORT).show()
+        if (username.isEmpty()) {
+            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Send username and password to Flutter
+        BaseApplication.methodChannel?.invokeMethod("sendUsername",  username)
+
         val intent = FlutterActivity
             .withCachedEngine("login_flutter")
             .build(this)
