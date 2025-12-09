@@ -1,13 +1,14 @@
 package com.satya.passwordvault
 
 import android.app.Application
+import android.content.Intent
 import android.widget.Toast
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodChannel
 
-class BaseApplication: Application() {
+class BaseApplication : Application() {
 
     companion object {
         const val LOGIN_CHANNEL = "com.satya.passwordvault/login_channel"
@@ -28,6 +29,18 @@ class BaseApplication: Application() {
         methodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, LOGIN_CHANNEL)
         methodChannel?.setMethodCallHandler { call, result ->
             when (call.method) {
+                "sendAccountDetails" -> {
+                    val username = call.arguments.toString()
+
+                    Toast.makeText(this, "New account: $username", Toast.LENGTH_SHORT).show()
+
+                    // Optionally navigate to another native Activity
+                    val intent = Intent(this, DataViewActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("username", username)
+                    startActivity(intent)
+                }
+
                 "closeFlutter" -> {
                     Toast.makeText(applicationContext, "Flutter closed", Toast.LENGTH_SHORT).show()
                 }

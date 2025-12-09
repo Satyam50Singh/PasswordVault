@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_module/utils/FlutterChannelKeys.dart';
 
 class AddAccountPage extends StatefulWidget {
-  const AddAccountPage({super.key});
+
+  final String username;
+
+  const AddAccountPage({super.key, required this.username});
 
   @override
   State<AddAccountPage> createState() => _AddAccountPageState();
@@ -19,8 +24,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
         appBar: AppBar(
           backgroundColor: Color(0xFF702963),
           title: Text(
-            "Add Account",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            "Account Holder - ${widget.username}",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
           ),
           leading: IconButton(
             onPressed: () {
@@ -34,11 +39,18 @@ class _AddAccountPageState extends State<AddAccountPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text("Add Account Page", style: TextStyle(fontSize: 22)),
-                SizedBox(height: 50,),
-                ElevatedButton(onPressed: () {
-                  // Navigate Back to Native Activity with Some data.
-                }, child: Text("Back to Native"))
+                Text("Store New Creds Page", style: TextStyle(fontSize: 22)),
+                SizedBox(height: 50),
+                ElevatedButton(
+                  onPressed: () {
+                    // Navigate Back to Native Activity with Some data.
+                    final platform = MethodChannel(
+                      FlutterChannelKeys.loginChannel,
+                    );
+                    platform.invokeMethod("sendAccountDetails", widget.username);
+                  },
+                  child: Text("Back to Native"),
+                ),
               ],
             ),
           ),

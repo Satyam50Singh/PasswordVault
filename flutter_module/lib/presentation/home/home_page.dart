@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../utils/FlutterChannelKeys.dart';
 import '../add_account/add_account_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static const platform = MethodChannel(
-    "com.satya.passwordvault/login_channel",
+    FlutterChannelKeys.loginChannel,
   );
 
   String username = "";
@@ -58,16 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 "Welcome $username!",
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
                   print("Button pressed");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const AddAccountPage()),
+                    MaterialPageRoute(builder: (_) => AddAccountPage(username: username)),
                   );
                 },
-                child: const Text("Add New Credentials"),
+                child: const Text("Store new credentials"),
               ),
             ],
           ),
