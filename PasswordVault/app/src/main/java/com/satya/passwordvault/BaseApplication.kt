@@ -29,10 +29,15 @@ class BaseApplication : Application() {
         methodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, LOGIN_CHANNEL)
         methodChannel?.setMethodCallHandler { call, result ->
             when (call.method) {
-                "sendAccountDetails" -> {
-                    val username = call.arguments.toString()
+                "saveRecord" -> {
+                    val record = call.arguments as Map<String, Any>
 
-                    Toast.makeText(this, "New account: $username", Toast.LENGTH_SHORT).show()
+                    val category = record["category"] as String
+                    val platform = record["platform"] as String
+                    val username = record["username"] as String
+                    val password = record["password"] as String
+
+                    Toast.makeText(this, "New record: $category, $platform, $username, $password", Toast.LENGTH_SHORT).show()
 
                     // Optionally navigate to another native Activity
                     val intent = Intent(this, DataViewActivity::class.java)
