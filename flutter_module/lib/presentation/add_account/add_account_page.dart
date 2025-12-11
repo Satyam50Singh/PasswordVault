@@ -13,10 +13,30 @@ class AddAccountPage extends StatefulWidget {
 
 class _AddAccountPageState extends State<AddAccountPage> {
   final Map<String, List<String>> categoryGroups = {
-    "Social": ["Facebook", "Instagram", "Twitter", "Snapchat"],
-    "E-Commerce": ["Amazon", "Flipkart", "Myntra"],
+    "Social": ["Facebook", "Instagram", "Twitter", "Snapchat", "YouTube"],
+
+    "E-Commerce": ["Amazon", "Flipkart", "Myntra", "Zomato", "Swiggy"],
+
     "Travel": ["IRCTC", "MakeMyTrip", "Yatra"],
-    "Office": ["Zoho", "Slack", "Notion"],
+
+    "Banking": [
+      "ICICI Bank",
+      "SBI",
+      "PSB",
+      "ICICI Credit Card",
+      "PSB Debit Card",
+    ],
+
+    "Government Services": ["EPFO", "Post Office (PO)"],
+
+    "Office / Corporate": [
+      "Zoho",
+      "Slack",
+      "Notion",
+      "Capgemini",
+      "TCS",
+      "Accenture",
+    ],
   };
 
   String? selectedCategory;
@@ -66,7 +86,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                     color: Color(0xFF702963),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 4),
 
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -105,7 +125,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                       color: Color(0xFF702963),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 4),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
@@ -141,9 +161,9 @@ class _AddAccountPageState extends State<AddAccountPage> {
                     color: Color(0xFF702963),
                   ),
                 ),
+                const SizedBox(height: 4),
                 TextField(
                   controller: usernameController,
-
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -162,6 +182,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                     color: Color(0xFF702963),
                   ),
                 ),
+                const SizedBox(height: 4),
                 TextField(
                   controller: passwordController,
                   obscureText: true,
@@ -173,7 +194,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                   ),
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 40),
 
                 SizedBox(
                   width: double.infinity,
@@ -185,32 +206,22 @@ class _AddAccountPageState extends State<AddAccountPage> {
                       ),
                     ),
                     onPressed: () {
-                      // handle validations
-                      if (selectedCategory == null ||
-                          selectedPlatform == null ||
-                          usernameController.text.isEmpty ||
-                          passwordController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Please fill all fields properly."),
-                          ),
+                      if (checkValidations()) {
+                        final record = {
+                          "category": selectedCategory,
+                          "platform": selectedPlatform,
+                          "username": usernameController.text,
+                          "password": passwordController.text,
+                        };
+
+                        print("Saved Record: $record");
+
+                        // Navigate Back to Native Activity with Some data.
+                        final platform = MethodChannel(
+                          FlutterChannelKeys.loginChannel,
                         );
-                        return;
+                        platform.invokeMethod("saveRecord", record);
                       }
-                      final record = {
-                        "category": selectedCategory,
-                        "platform": selectedPlatform,
-                        "username": usernameController.text,
-                        "password": passwordController.text,
-                      };
-
-                      print("Saved Record: $record");
-
-                      // Navigate Back to Native Activity with Some data.
-                      final platform = MethodChannel(
-                        FlutterChannelKeys.loginChannel,
-                      );
-                      platform.invokeMethod("saveRecord", record);
                     },
                     child: Text(
                       "Save Record",
@@ -224,5 +235,26 @@ class _AddAccountPageState extends State<AddAccountPage> {
         ),
       ),
     );
+  }
+
+  bool checkValidations() {
+    // handle validations
+    if (selectedCategory == null ||
+        selectedPlatform == null ||
+        usernameController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+
+        const SnackBar(
+          content: Text("Please fill all fields properly."),
+          backgroundColor: Color(0xFF702963),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.all(10),
+        ),
+      );
+      return false;
+    } else {
+      return true;
+    }
   }
 }

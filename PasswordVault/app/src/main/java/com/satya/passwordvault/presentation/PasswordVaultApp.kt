@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -14,10 +15,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.satya.passwordvault.R
 
 @Composable
 fun PasswordVaultApp(doLogin: (String, String) -> Unit) {
@@ -35,16 +39,22 @@ fun PasswordVaultApp(doLogin: (String, String) -> Unit) {
         ) {
             Text(
                 text = "LOGIN",
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.h5,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp).fillMaxWidth()
+                color = colorResource(id = R.color.primary_color),
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
             )
 
             Text(
                 text = "Username",
                 style = MaterialTheme.typography.body1,
-                modifier = Modifier.padding(start = 4.dp, bottom = 0.dp)
+                modifier = Modifier.padding(start = 4.dp, bottom = 0.dp),
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Start,
+                color = colorResource(id = R.color.primary_color)
             )
             OutlinedTextField(
                 value = username,
@@ -52,12 +62,19 @@ fun PasswordVaultApp(doLogin: (String, String) -> Unit) {
                 placeholder = { Text(text = "Enter Username") },
                 singleLine = true,
                 maxLines = 1,
-                modifier = Modifier.padding(vertical = 16.dp).fillMaxWidth()
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .fillMaxWidth()
             )
             Text(
                 text = "Password",
                 style = MaterialTheme.typography.body1,
-                modifier = Modifier.padding(start = 4.dp, bottom = 0.dp).fillMaxWidth()
+                modifier = Modifier
+                    .padding(start = 4.dp, bottom = 0.dp)
+                    .fillMaxWidth(),
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Start,
+                color = colorResource(id = R.color.primary_color)
             )
             OutlinedTextField(
                 value = password,
@@ -66,7 +83,9 @@ fun PasswordVaultApp(doLogin: (String, String) -> Unit) {
                 singleLine = true,
                 maxLines = 1,
                 visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.padding(vertical = 16.dp).fillMaxWidth()
+                modifier = Modifier
+                    .padding(top = 8.dp, bottom = 16.dp)
+                    .fillMaxWidth()
             )
 
             Button(
@@ -75,9 +94,21 @@ fun PasswordVaultApp(doLogin: (String, String) -> Unit) {
                     username = ""
                     password = ""
                 },
-                modifier = Modifier.padding(16.dp).fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth(),
+                shape = MaterialTheme.shapes.medium,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(id = R.color.primary_color),
+                    contentColor = colorResource(id = R.color.white)
+                ),
+
             ) {
-                Text(text = "Login")
+                Text(
+                    text = "Login",
+                    modifier = Modifier.padding(vertical = 4.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
             }
 
         }

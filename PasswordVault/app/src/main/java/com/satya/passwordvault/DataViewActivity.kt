@@ -18,10 +18,11 @@ class DataViewActivity : AppCompatActivity() {
             insets
         }
 
-        val username = intent.getStringExtra("username")
-        // Use the username as needed
-        findViewById<TextView>(R.id.textView).text = username
-
-
+        val record = intent.getSerializableExtra("record")
+        val recordData = record as Map<*, *>
+        val category = recordData["category"] as String
+        val platform = recordData["platform"] as String
+        val username = recordData["username"] as String
+        val password = recordData["password"] as String
     }
 }
