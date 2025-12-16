@@ -16,6 +16,7 @@ import com.satya.passwordvault.databinding.ActivityMainBinding
 import com.satya.passwordvault.presentation.PasswordVaultApp
 import com.satya.passwordvault.worker.LoginWorker
 import io.flutter.embedding.android.FlutterActivity
+import java.util.Date
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,9 +49,11 @@ class MainActivity : AppCompatActivity() {
                     doSubmit(username, password)
                 },
                 downloadPdf = {
-                    val url = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\n"
+                    val url =
+                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+
                     val request = DownloadManager.Request(Uri.parse(url))
-                        .setTitle("PasswordVault")
+                        .setTitle("PasswordVault-${Date().time}")
                         .setDescription("Collection of all the passwords")
                         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                         .setAllowedOverMetered(true)
@@ -58,12 +61,14 @@ class MainActivity : AppCompatActivity() {
                         .setMimeType("application/pdf")
                         .setDestinationInExternalPublicDir(
                             Environment.DIRECTORY_DOWNLOADS,
-                            "PasswordVault.pdf"
+                            "PasswordVault-${Date().time}.pdf"
                         )
 
                     val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-                    downloadManager.enqueue(request)
-                    Toast.makeText(this, "Downloading...", Toast.LENGTH_SHORT).show()
+                    val downloadId = downloadManager.enqueue(request)
+
+                    // save downloadId to data store
+                    Toast.makeText(this, "Downloading... $downloadId", Toast.LENGTH_SHORT).show()
                 }
             )
         }
