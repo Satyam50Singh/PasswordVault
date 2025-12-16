@@ -70,4 +70,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+
+    // Work Manager
+    implementation(libs.androidx.work.runtime.ktx)
 }
