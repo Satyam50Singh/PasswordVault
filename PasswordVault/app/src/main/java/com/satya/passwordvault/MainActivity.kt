@@ -1,6 +1,9 @@
 package com.satya.passwordvault
 
+import android.app.DownloadManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -39,10 +42,30 @@ class MainActivity : AppCompatActivity() {
 
     fun initCompose() {
         binding.composeView.setContent {
-            PasswordVaultApp(doLogin = { username, password ->
-                // Handle login logic here
-                doSubmit(username, password)
-            })
+            PasswordVaultApp(
+                doLogin = { username, password ->
+                    // Handle login logic here
+                    doSubmit(username, password)
+                },
+                downloadPdf = {
+                    val url = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\n"
+                    val request = DownloadManager.Request(Uri.parse(url))
+                        .setTitle("PasswordVault")
+                        .setDescription("Collection of all the passwords")
+                        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        .setAllowedOverMetered(true)
+                        .setAllowedOverRoaming(true)
+                        .setMimeType("application/pdf")
+                        .setDestinationInExternalPublicDir(
+                            Environment.DIRECTORY_DOWNLOADS,
+                            "PasswordVault.pdf"
+                        )
+
+                    val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+                    downloadManager.enqueue(request)
+                    Toast.makeText(this, "Downloading...", Toast.LENGTH_SHORT).show()
+                }
+            )
         }
         workManager = WorkManager.getInstance(this)
 
@@ -51,7 +74,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun doSubmit(username: String, password: String) {
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 

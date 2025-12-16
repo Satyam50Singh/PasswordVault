@@ -1,6 +1,7 @@
 package com.satya.passwordvault.presentation
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -24,7 +25,10 @@ import androidx.compose.ui.unit.sp
 import com.satya.passwordvault.R
 
 @Composable
-fun PasswordVaultApp(doLogin: (String, String) -> Unit) {
+fun PasswordVaultApp(
+    doLogin: (String, String) -> Unit,
+    downloadPdf: () -> Unit
+) {
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -102,9 +106,30 @@ fun PasswordVaultApp(doLogin: (String, String) -> Unit) {
                     contentColor = colorResource(id = R.color.white)
                 ),
 
-            ) {
+                ) {
                 Text(
                     text = "Login",
+                    modifier = Modifier.padding(vertical = 4.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+            }
+            Spacer(modifier = Modifier.padding(10.dp))
+            Button(
+                onClick = {
+                    downloadPdf()
+                },
+                modifier = Modifier
+                    .fillMaxWidth(),
+                shape = MaterialTheme.shapes.medium,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(id = R.color.primary_color),
+                    contentColor = colorResource(id = R.color.white)
+                ),
+
+                ) {
+                Text(
+                    text = "Download PDF",
                     modifier = Modifier.padding(vertical = 4.dp),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
