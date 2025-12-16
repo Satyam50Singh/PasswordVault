@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: IconButton(
           onPressed: () {
             platform.invokeMethod("closeFlutter");
+            SystemNavigator.pop();
           },
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
